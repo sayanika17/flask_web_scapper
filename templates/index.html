@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Scraper with LLM</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        input, button { padding: 10px; margin: 10px; }
+        .container { max-width: 600px; margin: auto; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Web Scraper using LLM</h1>
+        <form id="scrapeForm">
+            <input type="text" id="url" name="url" placeholder="Enter webpage URL" required>
+            <button type="submit">Scrape & Summarize</button>
+        </form>
+        <h3>Summary:</h3>
+        <p id="summary"></p>
+    </div>
+
+    <script>
+        document.getElementById('scrapeForm').onsubmit = async function(event) {
+            event.preventDefault();
+            const url = document.getElementById('url').value;
+            const response = await fetch('/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `url=${encodeURIComponent(url)}`
+            });
+            const data = await response.json();
+            document.getElementById('summary').innerText = data.summary;
+        };
+    </script>
+</body>
+</html>
